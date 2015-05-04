@@ -1,15 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'version'
+require 'bitbucket-pull-request/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "bitbucket-pull-request"
-  spec.version       = Bitbucket::PullRequest::VERSION
+  spec.version       = BitbucketPullRequest::VERSION
   spec.authors       = ["Daniel Ma"]
   spec.email         = ["drailskid@yahoo.com"]
 
   spec.summary       = %q{Git plugin to create a bitbucket pull request}
+  spec.description   = %q{Git plugin to create a bitbucket pull request}
   spec.homepage      = "https://github.com/danielma/bitbucket-pull-request"
   spec.license       = "MIT"
 
