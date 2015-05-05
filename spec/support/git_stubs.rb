@@ -9,6 +9,6 @@ origin	https://danielma@bitbucket.org/crew/cool-repo.git (push)
 
   before(:each) do
     allow(BitbucketPullRequest::Remotes).to receive(:get_remotes_raw).and_return(_remotes)
-    allow(BitbucketPullRequest::Branch).to receive(:get).and_return(_branch)
+    allow(BitbucketPullRequest::Branch).to receive(:get_raw).and_return(_branch)
   end
 end
