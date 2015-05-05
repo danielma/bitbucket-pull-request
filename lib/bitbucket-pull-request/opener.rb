@@ -1,4 +1,4 @@
-require 'open-uri'
+require 'cgi'
 
 module BitbucketPullRequest
   class Opener
@@ -23,15 +23,15 @@ module BitbucketPullRequest
     end
 
     def self.source_param
-      "#{self.path}::#{self.branch}"
+      CGI.escape "#{self.path}::#{self.branch}"
     end
 
     def self.dest_param
-      "#{self.path}::master"
+      CGI.escape "#{self.path}::master"
     end
 
     def self.pull_request_path
-      URI::encode "pull-request/new?source=#{self.source_param}&dest=#{self.dest_param}"
+      "pull-request/new?source=#{self.source_param}&dest=#{self.dest_param}"
     end
   end
 end

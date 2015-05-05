@@ -6,13 +6,13 @@ describe BitbucketPullRequest::Opener do
   describe 'source_param' do
     subject { described_class.source_param }
 
-    it { is_expected.to eq 'crew/cool-repo::new-feature' }
+    it { is_expected.to eq 'crew%2Fcool-repo%3A%3Anew-feature' }
   end
 
   describe 'dest_param' do
     subject { described_class.dest_param }
 
-    it { is_expected.to eq 'crew/cool-repo::master' }
+    it { is_expected.to eq 'crew%2Fcool-repo%3A%3Amaster' }
   end
 
   describe 'full_url' do
