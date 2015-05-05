@@ -1,19 +1,23 @@
 require 'spec_helper'
 
 describe BitbucketPullRequest::Opener do
-  before do
-    expect(BitbucketPullRequest::Remotes).to receive(:get_remotes_raw).and_return(%(origin	https://danielma@bitbucket.org/hrock/hrockchurch.com.git (fetch)
-origin	https://danielma@bitbucket.org/hrock/hrockchurch.com.git (push)
-))
-    expect(described_class).to receive('path').and_return('danielma/cool-repo')
-    expect(described_class).to receive('branch').and_return('feature-branch')
-  end
-
-  describe 'pull_request_path' do
-    expect(described_class.pull_request_path).to eq 'blue'
-  end
+  include_context 'git stubs'
 
   describe 'source_param' do
-    expect(described_class.source_param).to eq 'source='
+    subject { described_class.source_param }
+
+    it { is_expected.to eq 'crew/cool-repo::new-feature' }
+  end
+
+  describe 'dest_param' do
+    subject { described_class.dest_param }
+
+    it { is_expected.to eq 'crew/cool-repo::master' }
+  end
+
+  describe 'full_url' do
+    subject { described_class.full_url }
+
+    it { is_expected.to start_with 'https://bitbucket.org/crew/cool-repo/pull-request/new?' }
   end
 end

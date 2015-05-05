@@ -11,7 +11,7 @@ module BitbucketPullRequest
     end
 
     def self.root_url
-      "http://bitbucket.org/"
+      "https://bitbucket.org/"
     end
 
     def self.path
@@ -23,15 +23,15 @@ module BitbucketPullRequest
     end
 
     def self.source_param
-      "source=#{self.path}::#{self.branch}"
+      "#{self.path}::#{self.branch}"
     end
 
     def self.dest_param
-      "dest=#{self.path}::master"
+      "#{self.path}::master"
     end
 
     def self.pull_request_path
-      URI::encode "pull-request/new?#{self.source_param}&#{self.dest_param}"
+      URI::encode "pull-request/new?source=#{self.source_param}&dest=#{self.dest_param}"
     end
   end
 end
