@@ -5,7 +5,7 @@ origin	https://danielma@bitbucket.org/crew/cool-repo.git (push)
 )
   end
 
-  let(:_branch) { 'new-feature' }
+  let(:_branch) { "new-feature\n" }
 
   before(:each) do
     allow(BitbucketPullRequest::Remotes).to receive(:get_remotes_raw).and_return(_remotes)
