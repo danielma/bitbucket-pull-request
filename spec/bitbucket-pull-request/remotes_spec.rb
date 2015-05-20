@@ -6,14 +6,52 @@ describe BitbucketPullRequest::Remotes do
   end
 
   describe 'bitbucket repo' do
-    let(:remotes) do
-%(origin	https://danielma@bitbucket.org/hrock/hrockchurch.com.git (fetch)
-origin	https://danielma@bitbucket.org/hrock/hrockchurch.com.git (push)
-)
+    describe 'with user' do
+      let(:remotes) do
+  %(origin	https://danielma@bitbucket.org/danielma/my-repo.git (fetch)
+  origin	https://danielma@bitbucket.org/danielma/my-repo.git (push)
+  )
+      end
+
+      it 'gets remotes' do
+        expect(described_class::remote_path).to eq 'danielma/my-repo'
+      end
     end
 
-    it 'gets remotes' do
-      expect(described_class::remote_path).to eq 'hrock/hrockchurch.com'
+    describe 'without user' do
+      let(:remotes) do
+        %(origin	https://bitbucket.org/danielma/my-repo.git (fetch)
+origin	https://bitbucket.org/danielma/my-repo.git (push)
+        )
+      end
+
+      it 'gets remote' do
+        expect(described_class::remote_path).to eq 'danielma/my-repo'
+      end
+    end
+
+    describe 'without .git' do
+      let(:remotes) do
+        %(origin	https://bitbucket.org/danielma/my-repo (fetch)
+origin	https://bitbucket.org/danielma/my-repo (push)
+        )
+      end
+
+      it 'gets remote' do
+        expect(described_class::remote_path).to eq 'danielma/my-repo'
+      end
+    end
+
+    describe 'with user, without .git' do
+      let(:remotes) do
+        %(origin	https://danielma@bitbucket.org/danielma/my-repo (fetch)
+origin	https://danielma@bitbucket.org/danielma/my-repo (push)
+        )
+      end
+
+      it 'gets remote' do
+        expect(described_class::remote_path).to eq 'danielma/my-repo'
+      end
     end
   end
 

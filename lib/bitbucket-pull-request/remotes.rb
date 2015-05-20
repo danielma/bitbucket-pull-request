@@ -4,7 +4,7 @@ module BitbucketPullRequest
       raw    = self.get_remotes_raw
       origin = raw.match(/^origin\s(.+?)\s\(\w+\)$/) || throw('No remote origin')
 
-      path = origin[1].match(%r{bitbucket\.org/(.+?)\.git})
+      path = origin[1].match(%r{://(?:\w+@)?bitbucket\.org/(.+?)(\.git)?$})
 
       path ? path[1] : throw('Only works with bitbucket repositories')
     end
