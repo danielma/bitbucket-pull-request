@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe BitbucketPullRequest::Remotes do
   before do
-    expect(described_class).to receive(:get_remotes_raw).and_return(remotes)
+    allow(described_class).to receive(:get_remotes_raw).and_return(remotes)
   end
+
+  subject { described_class::remote_path }
 
   describe 'bitbucket repo' do
     describe 'with user' do
@@ -13,9 +15,7 @@ describe BitbucketPullRequest::Remotes do
   )
       end
 
-      it 'gets remotes' do
-        expect(described_class::remote_path).to eq 'danielma/my-repo'
-      end
+      it { is_expected.to eq 'danielma/my-repo' }
     end
 
     describe 'without user' do
@@ -25,9 +25,7 @@ origin	https://bitbucket.org/danielma/my-repo.git (push)
         )
       end
 
-      it 'gets remote' do
-        expect(described_class::remote_path).to eq 'danielma/my-repo'
-      end
+      it { is_expected.to eq 'danielma/my-repo' }
     end
 
     describe 'without .git' do
@@ -37,9 +35,7 @@ origin	https://bitbucket.org/danielma/my-repo (push)
         )
       end
 
-      it 'gets remote' do
-        expect(described_class::remote_path).to eq 'danielma/my-repo'
-      end
+      it { is_expected.to eq 'danielma/my-repo' }
     end
 
     describe 'with user, without .git' do
@@ -49,9 +45,17 @@ origin	https://danielma@bitbucket.org/danielma/my-repo (push)
         )
       end
 
-      it 'gets remote' do
-        expect(described_class::remote_path).to eq 'danielma/my-repo'
+      it { is_expected.to eq 'danielma/my-repo' }
+    end
+
+    describe 'no protocol' do
+      let(:remotes) do
+        %(origin	git@bitbucket.org:danielma/my-repo.git (fetch)
+origin	git@bitbucket.org:danielma/my-repo.git (push)
+        )
       end
+
+      it { is_expected.to eq 'danielma/my-repo' }
     end
   end
 
